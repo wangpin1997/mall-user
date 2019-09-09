@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>cn.wpin.mall</groupId>
+        <artifactId>mall-base-dependency</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <!--relativePath不填默认是../pom.xml-->
+        <!--        <relativePath>../mall-base-dependency/pom.xml</relativePath>-->
+    </parent>
+    
+    <artifactId>mall-user</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>user-entity</module>
+        <module>user-client</module>
+        <module>user-server</module>
+    </modules>
+    <modelVersion>4.0.0</modelVersion>
+    <name>mall-user</name>
+    <packaging>pom</packaging>
+
+<!--    <properties>-->
+<!--        <project.springboot.version>2.0.2.RELEASE</project.springboot.version>-->
+<!--    </properties>-->
+
+
+
+    <scm>
+        <url>https://github.com/wangpin1997/mall-user.git</url>
+        <connection>scm:git:https://github.com/wangpin1997/mall-user.git</connection>
+        <developerConnection>scm:git:https://github.com/wangpin1997/mall-user.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+
+
+
+
+    
+</project>
