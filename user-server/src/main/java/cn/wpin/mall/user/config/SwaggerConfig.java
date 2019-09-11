@@ -21,7 +21,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@Order(-1)
 public class SwaggerConfig {
 
     @Bean
@@ -40,7 +39,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("商城用户模块API接口列表")
                 .description("")
-                .version("2.0")
+                .version("1.0")
                 .build();
     }
 

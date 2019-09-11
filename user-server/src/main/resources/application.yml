@@ -1,0 +1,11 @@
+server:
+  port: 8886
+
+mybatis:
+  mapper-locations:
+    - classpath*:*/mapper/*.xml
+    - classpath*:*/dao/*.xml
+#  type-aliases-package: cn.wpin.mall
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
