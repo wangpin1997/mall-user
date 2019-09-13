@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author wangpin
+ */
 @FeignClient("user")
 public interface PermissionClient {
 

@@ -14,6 +14,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author wangpin
+ */
 @FeignClient("user")
 public interface AdminClient {
 
