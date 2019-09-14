@@ -56,4 +56,7 @@ public interface AdminClient {
 
     @GetMapping(value = "admin/permission/{adminId}")
     List<Permission> getPermissionList(@PathVariable Long adminId);
+
+    @GetMapping(value = "admin/getAdminByUserName")
+    Admin getAdminByUserName(@RequestParam String name);
 }

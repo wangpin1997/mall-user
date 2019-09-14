@@ -82,6 +82,11 @@ public class AdminController {
         return data;
     }
 
+    @RequestMapping(value = "getAdminByUserName",method = RequestMethod.GET)
+    public Admin getAdminByUserName(@RequestParam String name){
+        return adminService.getAdminByUsername(name);
+    }
+
     @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public CommonResult logout() {
