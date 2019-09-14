@@ -37,24 +37,18 @@ public class AdminController {
 //    @Value("${jwt.tokenHead}")
 //    private String tokenHead;
 
-    @ApiOperation(value = "用户注册")
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public Admin register(@RequestBody AdminParam AdminParam) {
-       return adminService.register(AdminParam);
+    @ApiOperation(value = "判断用户是否存在")
+    @RequestMapping(value = "/adminIsExist", method = RequestMethod.POST)
+    public boolean adminIsExist(@RequestBody AdminParam adminParam) {
+       return adminService.adminIsExist(adminParam);
     }
 
-    @ApiOperation(value = "登录以后返回token")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public CommonResult login(@RequestBody AdminLoginParam AdminLoginParam) {
-        String token = adminService.login(AdminLoginParam.getUsername(), AdminLoginParam.getPassword());
-        if (token == null) {
-            return CommonResult.validateFailed("用户名或密码错误");
-        }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-//        tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(tokenMap);
+    @ApiOperation("添加用户")
+    @RequestMapping(value = "addUser",method = RequestMethod.POST)
+    public int addUser(Admin admin){
+       return adminService.add(admin);
     }
+
     
     @ApiOperation(value = "添加登录日志记录接口")
     @PostMapping("insertLoginLog")
@@ -62,19 +56,6 @@ public class AdminController {
         adminService.insertLoginLog(username);
     }
 
-    @ApiOperation(value = "刷新token")
-    @RequestMapping(value = "/token/refresh", method = RequestMethod.GET)
-    public Map<String, String> refreshToken(HttpServletRequest request) {
-//        String token = request.getHeader(tokenHeader);
-//        String refreshToken = adminService.refreshToken(token);
-//        if (refreshToken == null) {
-//            return CommonResult.failed();
-//        }
-        Map<String, String> tokenMap = new HashMap<>();
-//        tokenMap.put("token", refreshToken);
-//        tokenMap.put("tokenHead", tokenHead);
-        return tokenMap;
-    }
 
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)

@@ -15,7 +15,9 @@ import com.github.pagehelper.PageHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -24,6 +26,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,16 +39,10 @@ import java.util.stream.Collectors;
 @Service
 public class AdminService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminService.class);
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-//    @Autowired
-//    private JwtTokenUtil jwtTokenUtil;
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-//    @Value("${jwt.tokenHead}")
-//    private String tokenHead;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     private AdminMapper adminMapper;
     @Autowired
@@ -71,45 +68,27 @@ public class AdminService {
     }
 
    
-    public Admin register(AdminParam AdminParam) {
-        Admin Admin = new Admin();
-//        BeanUtils.copyProperties(AdminParam, Admin);
-//        Admin.setCreateTime(new Date());
-//        Admin.setStatus(1);
-//        //查询是否有相同用户名的用户
-//        AdminExample example = new AdminExample();
-//        example.createCriteria().andUsernameEqualTo(Admin.getUsername());
-//        List<Admin> AdminList = adminMapper.selectByExample(example);
-//        if (AdminList.size() > 0) {
-//            return null;
-//        }
-//        //将密码进行加密操作
-//        String encodePassword = passwordEncoder.encode(Admin.getPassword());
-//        Admin.setPassword(encodePassword);
-//        adminMapper.insert(Admin);
-        return Admin;
+    public boolean adminIsExist(AdminParam adminParam) {
+        Admin admin = new Admin();
+        BeanUtils.copyProperties(adminParam, admin);
+        admin.setCreateTime(new Date());
+        admin.setStatus(1);
+        //查询是否有相同用户名的用户
+        AdminExample example = new AdminExample();
+        example.createCriteria().andUsernameEqualTo(admin.getUsername());
+        List<Admin> adminList = adminMapper.selectByExample(example);
+        return !CollectionUtils.isEmpty(adminList);
     }
 
-   
-    public String login(String username, String password) {
-        //TODO:将jwt验证移到后台，后续再操作
-        String token = null;
-//        //密码需要客户端加密后传递
-//        try {
-//            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-//            if(!passwordEncoder.matches(password,userDetails.getPassword())){
-//                throw new BadCredentialsException("密码不正确");
-//            }
-//            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            token = jwtTokenUtil.generateToken(userDetails);
-////            updateLoginTimeByUsername(username);
-//            insertLoginLog(username);
-//        } catch (AuthenticationException e) {
-//            LOGGER.warn("登录异常:{}", e.getMessage());
-//        }
-        return token;
+    /**
+     * 添加用户
+     * @param admin
+     * @return
+     */
+    public int add(Admin admin){
+        return adminMapper.insert(admin);
     }
+
 
     /**
      * 添加登录记录
@@ -135,15 +114,6 @@ public class AdminService {
         AdminExample example = new AdminExample();
         example.createCriteria().andUsernameEqualTo(username);
         adminMapper.updateByExampleSelective(record, example);
-    }
-
-   
-    public String refreshToken(String oldToken) {
-//        String token = oldToken.substring(tokenHead.length());
-//        if (jwtTokenUtil.canRefresh(token)) {
-//            return jwtTokenUtil.refreshToken(token);
-//        }
-        return null;
     }
 
    

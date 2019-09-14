@@ -1,8 +1,6 @@
 package cn.wpin.mall.client.user;
 
 import cn.wpin.mall.common.entity.CommonPage;
-import cn.wpin.mall.common.entity.CommonResult;
-import cn.wpin.mall.user.dto.AdminLoginParam;
 import cn.wpin.mall.user.dto.AdminParam;
 import cn.wpin.mall.user.entity.Admin;
 import cn.wpin.mall.user.entity.Permission;
@@ -20,19 +18,31 @@ import java.util.Map;
 @FeignClient("user")
 public interface AdminClient {
 
-    @PostMapping(value = "admin/register")
-    Admin register(@RequestBody AdminParam adminParam);
+    /**
+     * 判断用户是否存在
+     *
+     * @param adminParam
+     * @return
+     */
+    @RequestMapping(value = "/adminIsExist", method = RequestMethod.POST)
+    boolean adminIsExist(@RequestBody AdminParam adminParam);
 
-    @PostMapping(value = "admin/login")
-    CommonResult login(@RequestBody AdminLoginParam adminLoginParam);
+    /**
+     * 添加用户
+     *
+     * @param admin
+     * @return
+     */
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    int addUser(Admin admin);
 
     @GetMapping(value = "admin/info")
-    Map<String,Object> getAdminInfo(@RequestBody Principal principal);
+    Map<String, Object> getAdminInfo(@RequestBody Principal principal);
 
     @GetMapping(value = "admin/list")
-    CommonPage<Admin> list(@RequestParam("name")String name,
-                                         @RequestParam("pageSize")int pageSize,
-                                         @RequestParam("pageNum")int pageNum);
+    CommonPage<Admin> list(@RequestParam("name") String name,
+                           @RequestParam("pageSize") int pageSize,
+                           @RequestParam("pageNum") int pageNum);
 
     @GetMapping(value = "admin/{id}")
     Admin getItem(@PathVariable("id") Integer id);
@@ -45,14 +55,14 @@ public interface AdminClient {
 
     @PostMapping(value = "admin/role/update")
     int updateRole(@RequestParam("adminId") Long adminId,
-                            @RequestParam("roleIds") List<Long> roleIds);
+                   @RequestParam("roleIds") List<Long> roleIds);
 
     @GetMapping(value = "admin/role/{adminId}")
     List<Role> getRoleList(@PathVariable Long adminId);
 
     @PostMapping(value = "admin//permission/update")
     int updatePermission(@RequestParam Long adminId,
-                                  @RequestParam("permissionIds") List<Long> permissionIds);
+                         @RequestParam("permissionIds") List<Long> permissionIds);
 
     @GetMapping(value = "admin/permission/{adminId}")
     List<Permission> getPermissionList(@PathVariable Long adminId);
