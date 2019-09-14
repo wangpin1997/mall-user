@@ -58,8 +58,7 @@ public class RoleController {
     @ApiOperation("获取所有角色")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Object list() {
-        List<Role> roleList = roleService.list();
-        return CommonResult.success(roleList);
+       return roleService.list();
     }
 
 }

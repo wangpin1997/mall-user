@@ -115,7 +115,7 @@ public class AdminService {
      * 添加登录记录
      * @param username 用户名
      */
-    private void insertLoginLog(String username) {
+    public void insertLoginLog(String username) {
         Admin admin = getAdminByUsername(username);
         AdminLoginLog loginLog = new AdminLoginLog();
         loginLog.setAdminId(admin.getId());

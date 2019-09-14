@@ -39,14 +39,14 @@ public class AdminController {
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public Admin register(@RequestBody AdminParam umsAdminParam) {
-       return adminService.register(umsAdminParam);
+    public Admin register(@RequestBody AdminParam AdminParam) {
+       return adminService.register(AdminParam);
     }
 
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public CommonResult login(@RequestBody AdminLoginParam umsAdminLoginParam) {
-        String token = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
+    public CommonResult login(@RequestBody AdminLoginParam AdminLoginParam) {
+        String token = adminService.login(AdminLoginParam.getUsername(), AdminLoginParam.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
@@ -54,6 +54,12 @@ public class AdminController {
         tokenMap.put("token", token);
 //        tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
+    }
+    
+    @ApiOperation(value = "添加登录日志记录接口")
+    @PostMapping("insertLoginLog")
+    public void insertLoginLog(@RequestParam String username){
+        adminService.insertLoginLog(username);
     }
 
     @ApiOperation(value = "刷新token")
@@ -74,11 +80,11 @@ public class AdminController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public Map<String,Object> getAdminInfo(Principal principal) {
         String username = principal.getName();
-        Admin umsAdmin = adminService.getAdminByUsername(username);
+        Admin Admin = adminService.getAdminByUsername(username);
         Map<String, Object> data = new HashMap<>();
-        data.put("username", umsAdmin.getUsername());
+        data.put("username", Admin.getUsername());
         data.put("roles", new String[]{"TEST"});
-        data.put("icon", umsAdmin.getIcon());
+        data.put("icon", Admin.getIcon());
         return data;
     }
 

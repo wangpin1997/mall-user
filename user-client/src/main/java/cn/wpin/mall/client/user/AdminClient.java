@@ -59,4 +59,7 @@ public interface AdminClient {
 
     @GetMapping(value = "admin/getAdminByUserName")
     Admin getAdminByUserName(@RequestParam String name);
+
+    @PostMapping(value = "admin/insertLoginLog")
+    void insertLoginLog(@RequestParam String username);
 }
