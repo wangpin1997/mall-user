@@ -12,12 +12,8 @@ import cn.wpin.mall.user.mapper.AdminMapper;
 import cn.wpin.mall.user.mapper.AdminPermissionRelationMapper;
 import cn.wpin.mall.user.mapper.AdminRoleRelationMapper;
 import com.github.pagehelper.PageHelper;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -26,7 +22,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,10 +33,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class AdminService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminService.class);
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AdminMapper adminMapper;

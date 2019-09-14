@@ -2,7 +2,6 @@ package cn.wpin.mall.user.controller;
 
 import cn.wpin.mall.common.entity.CommonPage;
 import cn.wpin.mall.common.entity.CommonResult;
-import cn.wpin.mall.user.dto.AdminLoginParam;
 import cn.wpin.mall.user.dto.AdminParam;
 import cn.wpin.mall.user.entity.Admin;
 import cn.wpin.mall.user.entity.Permission;
@@ -13,7 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -32,34 +30,30 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-//    @Value("${jwt.tokenHeader}")
-//    private String tokenHeader;
-//    @Value("${jwt.tokenHead}")
-//    private String tokenHead;
 
     @ApiOperation(value = "判断用户是否存在")
     @RequestMapping(value = "/adminIsExist", method = RequestMethod.POST)
     public boolean adminIsExist(@RequestBody AdminParam adminParam) {
-       return adminService.adminIsExist(adminParam);
+        return adminService.adminIsExist(adminParam);
     }
 
     @ApiOperation("添加用户")
-    @RequestMapping(value = "addUser",method = RequestMethod.POST)
-    public int addUser(Admin admin){
-       return adminService.add(admin);
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    public int addUser(Admin admin) {
+        return adminService.add(admin);
     }
 
-    
+
     @ApiOperation(value = "添加登录日志记录接口")
     @PostMapping("insertLoginLog")
-    public void insertLoginLog(@RequestParam String username){
+    public void insertLoginLog(@RequestParam String username) {
         adminService.insertLoginLog(username);
     }
 
 
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public Map<String,Object> getAdminInfo(Principal principal) {
+    public Map<String, Object> getAdminInfo(Principal principal) {
         String username = principal.getName();
         Admin Admin = adminService.getAdminByUsername(username);
         Map<String, Object> data = new HashMap<>();
@@ -69,8 +63,8 @@ public class AdminController {
         return data;
     }
 
-    @RequestMapping(value = "getAdminByUserName",method = RequestMethod.GET)
-    public Admin getAdminByUserName(@RequestParam String name){
+    @RequestMapping(value = "getAdminByUserName", method = RequestMethod.GET)
+    public Admin getAdminByUserName(@RequestParam String name) {
         return adminService.getAdminByUsername(name);
     }
 
@@ -83,8 +77,8 @@ public class AdminController {
     @ApiOperation("根据用户名或姓名分页获取用户列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public CommonPage<Admin> list(@RequestParam(value = "name", required = false) String name,
-                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+                                  @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<Admin> adminList = adminService.list(name, pageSize, pageNum);
         return CommonPage.restPage(adminList);
     }
