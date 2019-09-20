@@ -27,19 +27,19 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public CommonResult register(String username, String password, String telephone) {
+    public CommonResult register(@RequestParam String username, @RequestParam String password, @RequestParam String telephone) {
         return memberService.register(username, password, telephone);
     }
 
 
-    @PutMapping("/updatePassword")
-    public CommonResult updatePassword(String telephone, String password) {
+    @PostMapping("/updatePassword")
+    public CommonResult updatePassword(@RequestParam String telephone, @RequestParam String password) {
         return memberService.updatePassword(telephone, password);
     }
 
 
-    @PutMapping("/updateIntegration")
-    public int updateIntegration(Long id, Integer integration) {
+    @PostMapping("/updateIntegration")
+    public int updateIntegration(@RequestParam Long id, @RequestParam Integer integration) {
         return memberService.updateIntegration(id, integration);
     }
 

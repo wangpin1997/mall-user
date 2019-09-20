@@ -3,8 +3,14 @@ package cn.wpin.mall.client.user;
 import cn.wpin.mall.common.entity.CommonResult;
 import cn.wpin.mall.user.entity.Member;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * @author wangpin
+ */
 @FeignClient("user")
 public interface MemberClient {
 
@@ -15,13 +21,17 @@ public interface MemberClient {
     Member getById(@PathVariable Long id);
 
     @PostMapping("member/register")
-    CommonResult register(String username, String password, String telephone);
+    CommonResult register(@RequestParam String username,
+                          @RequestParam String password,
+                          @RequestParam String telephone);
 
 
-    @PutMapping("member/updatePassword")
-    CommonResult updatePassword(String telephone, String password);
+    @PostMapping("member/updatePassword")
+    CommonResult updatePassword(@RequestParam String telephone,
+                                @RequestParam String password);
 
 
-    @PutMapping("member/updateIntegration")
-    int updateIntegration(Long id, Integer integration);
+    @PostMapping("member/updateIntegration")
+    int updateIntegration(@RequestParam Long id,
+                          @RequestParam Integer integration);
 }
