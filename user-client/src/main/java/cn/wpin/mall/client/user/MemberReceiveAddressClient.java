@@ -15,8 +15,7 @@ public interface MemberReceiveAddressClient {
 
 
     @PostMapping("memberReceive/add")
-    int add(@RequestBody MemberReceiveAddress address,
-            @RequestBody Member currentMember);
+    int add(@RequestBody MemberReceiveAddress address);
 
     @DeleteMapping("memberReceive/delete")
     int delete(@RequestParam Long id,
@@ -24,8 +23,7 @@ public interface MemberReceiveAddressClient {
 
     @PutMapping("memberReceive/update")
     int update(@RequestParam Long id,
-               @RequestBody MemberReceiveAddress address,
-               @RequestBody Member currentMember);
+               @RequestBody MemberReceiveAddress address);
 
     @GetMapping("memberReceive/list")
     List<MemberReceiveAddress> list(@RequestBody Member currentMember);

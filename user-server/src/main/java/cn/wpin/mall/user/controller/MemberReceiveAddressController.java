@@ -20,9 +20,8 @@ public class MemberReceiveAddressController {
 
 
     @PostMapping("add")
-    public int add(@RequestBody MemberReceiveAddress address,
-                   @RequestBody Member currentMember) {
-        return memberReceiveAddressService.add(address, currentMember);
+    public int add(@RequestBody MemberReceiveAddress address) {
+        return memberReceiveAddressService.add(address);
     }
 
     @DeleteMapping("delete")
@@ -33,9 +32,8 @@ public class MemberReceiveAddressController {
 
     @PutMapping("update")
     public int update(@RequestParam Long id,
-                      @RequestBody MemberReceiveAddress address,
-                      @RequestBody Member currentMember) {
-        return memberReceiveAddressService.update(id, address, currentMember);
+                      @RequestBody MemberReceiveAddress address) {
+        return memberReceiveAddressService.update(id, address);
     }
 
     @GetMapping("list")

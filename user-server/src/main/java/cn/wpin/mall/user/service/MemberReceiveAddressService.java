@@ -22,8 +22,7 @@ public class MemberReceiveAddressService {
     private MemberReceiveAddressMapper addressMapper;
 
 
-    public int add(MemberReceiveAddress address, Member currentMember) {
-        address.setMemberId(currentMember.getId());
+    public int add(MemberReceiveAddress address) {
         return addressMapper.insert(address);
     }
 
@@ -33,10 +32,10 @@ public class MemberReceiveAddressService {
         return addressMapper.deleteByExample(example);
     }
 
-    public int update(Long id, MemberReceiveAddress address, Member currentMember) {
+    public int update(Long id, MemberReceiveAddress address) {
         address.setId(null);
         MemberReceiveAddressExample example = new MemberReceiveAddressExample();
-        example.createCriteria().andMemberIdEqualTo(currentMember.getId()).andIdEqualTo(id);
+        example.createCriteria().andMemberIdEqualTo(address.getMemberId()).andIdEqualTo(id);
         return addressMapper.updateByExampleSelective(address, example);
     }
 
