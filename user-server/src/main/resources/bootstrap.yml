@@ -5,11 +5,11 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: localhost:8848
+        server-addr: 120.79.160.65:8848
         name: ${spring.application.name}
         shared-dataids: nacos.yml,db.${spring.application.name}.yml,mybatis.yml #如是eureka注册，将nacos换成对应的eureka即可
         file-extension: yml
-        namespace: 75361628-fff1-43cf-bd04-4b887b16de02
+        namespace: 0abd1eef-7bdb-433d-967f-3c499a61998f
         refreshable-dataids: nacos.yml,db.${spring.application.name}.yml,mybatis.yml #如是eureka注册，将nacos换成对应的eureka即可
   profiles:
     active: test
